@@ -30,3 +30,8 @@ private_data_subnet_az1_id  = module.terasvpc.private_data_subnet_az1_id
 private_app_subnet_az2_id   = module.terasvpc.private_app_subnet_az2_id 
 private_data_subnet_az2_id  = module.terasvpc.private_data_subnet_az2_id
 }
+
+module "security_group" {
+  source = "../modules/security-groups"
+  teras-vpc_id = module.terasvpc.teras-vpc_id
+}
