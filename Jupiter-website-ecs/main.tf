@@ -56,3 +56,15 @@ module "application_load_balancer" {
   teras-vpc_id          = module.terasvpc.teras-vpc_id
   certificate_arn       = module.acm.certificate_arn
 }
+
+module "ecs" {
+  source                       =  "../modules/ecs"
+  project_name                 = module.terasvpc.project_name
+  ecs_tasks_execution_role_arn = module.ecs_task_execution_role.ecs_tasks_execution_role_arn
+  container_image              = var.container_image 
+  region                       = module.terasvpc.region
+  private_app_subnet_az1_id    = module.terasvpc.private_app_subnet_az1_id
+  private_app_subnet_az2_id    = module.terasvpc.private_app_subnet_az2_id
+  ecs_security_group_id        = module.security_group.ecs_security_group_id
+  alb_target_group_arn         = module.application_load_balancer.alb_target_group_arn
+}
