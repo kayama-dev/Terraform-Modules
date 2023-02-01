@@ -35,3 +35,8 @@ module "security_group" {
   source = "../modules/security-groups"
   teras-vpc_id = module.terasvpc.teras-vpc_id
 }
+
+module "ecs_task_execution_role" {
+  source = "../modules/ecs-task-execution-role"
+  project_name = module.terasvpc.teras-vpc_id
+}
