@@ -46,3 +46,13 @@ module "acm" {
     domain_name           = var.domain_name
   alternative_name        = var.alternative_name
 }
+
+module "application_load_balancer" {
+  source                = "../modules/alb"
+  project_name          = module.terasvpc.project_name
+  alb_security_group_id = module.security_group.alb_security_group_id
+  public_subnet_az1_id  = module.terasvpc.public_subnet_az1_id
+  public_subnet_az2_id  = module.terasvpc.public_subnet_az2_id
+  teras-vpc_id          = module.terasvpc.teras-vpc_id
+  certificate_arn       = module.acm.certificate_arn
+}
